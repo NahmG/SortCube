@@ -10,13 +10,9 @@ public class Slot : MonoBehaviour
     public void SetPosition(Vector3 position, bool useLocalPosition)
     {
         if (useLocalPosition)
-        {
             transform.localPosition = position;
-        }
         else
-        {
             transform.position = position;
-        }
     }
 
     public void Assign(Cube cube)
@@ -29,10 +25,4 @@ public class Slot : MonoBehaviour
     {
         cube = null;
     }
-}
-
-[Serializable]
-public class SlotData
-{
-    public CubeData cube;
 }
