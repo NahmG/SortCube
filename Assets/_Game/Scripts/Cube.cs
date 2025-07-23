@@ -16,28 +16,24 @@ public class Cube : MonoBehaviour
     {
         this.type = type;
 
-        if (type != CUBE.NONE)
-        {
-            GameObject g = Instantiate(mesh, transform);
-            g.GetComponent<MeshRenderer>().material = data.GetColor(type);
-        }
+        GameObject g = Instantiate(mesh, transform);
+        g.GetComponent<MeshRenderer>().material = data.GetColor(type);
     }
 
     public void SetSlot(Slot slot)
     {
         this.slot = slot;
+        transform.SetParent(slot.transform);
     }
 
     public void AnimMoveToPosition()
     {
-        transform.DOMove(Slot.transform.position, .2f);
+        transform.DOLocalMove(Vector3.zero, .2f);
     }
 }
 
-
 public enum CUBE
 {
-    NONE = 0,
     BLUE = 1,
     RED = 2,
     YELLOW = 3,

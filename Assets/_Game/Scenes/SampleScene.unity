@@ -128,6 +128,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 358475420}
     m_Modifications:
     - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
+      propertyPath: data.cubes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: 'data.cubes.Array.data[0]'
       value: 1
       objectReference: {fileID: 0}
@@ -498,6 +502,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 358475420}
     m_Modifications:
     - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
+      propertyPath: data.cubes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: 'data.cubes.Array.data[0]'
       value: 3
       objectReference: {fileID: 0}
@@ -583,16 +591,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 358475420}
     m_Modifications:
     - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
+      propertyPath: data.cubes.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: 'data.cubes.Array.data[0]'
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: 'data.cubes.Array.data[1]'
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: 'data.cubes.Array.data[2]'
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: 'data.cubes.Array.data[3]'

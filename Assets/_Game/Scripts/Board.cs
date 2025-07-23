@@ -27,15 +27,15 @@ public class Board : MonoBehaviour
         if (stack1 == null)
         {
             stack1 = stack;
-            Debug.Log("stack1: " + stack);
         }
         else if (stack2 == null)
         {
             stack2 = stack;
-            Debug.Log("stack2: " + stack);
             
             if (stack1 != stack2)
                 Sort();
+                
+            ResetInput();
         }
     }
 
@@ -46,7 +46,6 @@ public class Board : MonoBehaviour
             Cube cube = stack1.Pop();
             stack2.Push(cube);
         }
-        ResetInput();
     }
 
     void ResetInput()
