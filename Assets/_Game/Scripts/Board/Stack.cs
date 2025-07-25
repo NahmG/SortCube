@@ -10,40 +10,39 @@ public class Stack : MonoBehaviour
     public float spacing;
     public int size;
     [SerializeField] Cube cubePref;
-    [SerializeField] Slot slotPref;
     [SerializeField] StackData data;
     Board board;
     Slot[] slots;
 
-    CUBE targetType; //Use to 
+    CUBE targetType;
 
     public bool IsFull => slots.All(x => !x.IsEmpty);
     public bool IsEmpty => !slots.Any(x => !x.IsEmpty);
-    public bool IsComplete =>
-        IsFull && slots.All(x => x.Cube.Type == slots[0].Cube.Type);
+    public bool IsComplete => IsFull && slots.All(x => x.Cube.Type == slots[0].Cube.Type);
 
     public void Init(Board board)
     {
         this.board = board;
         slots = new Slot[size];
 
+        //gen new slot
         for (int i = 0; i < size; i++)
         {
             //new slot
-            Slot newSlot = Instantiate(slotPref, transform);
-            Vector3 pos = new(0, i * spacing, 0);
-            newSlot.SetPosition(pos, true);
+            Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
+            Slot newSlot = new(pos, transform);
 
             //assign new slot -> array
             slots[i] = newSlot;
         }
 
+        //gen cube
         for (int i = 0; i < data.cubes.Length; i++)
         {
             Slot slot = slots[i];
-            Cube cube = Instantiate(cubePref, slot.transform);
-            cube.SetSlot(slot);
+            Cube cube = Instantiate(cubePref, slot._root);
             cube.Init(data.cubes[i], scale);
+            cube.transform.position = slot._position;
 
             slot.Assign(cube);
         }
@@ -51,26 +50,28 @@ public class Stack : MonoBehaviour
 
     public void Push(List<Cube> cubes)
     {
-        int cubeIndex = 0;
-        for (int i = 0; i < slots.Length && cubeIndex < cubes.Count; i++)
+        int emptySlot = GetEmptySlotCount();
+        int count = Mathf.Min(emptySlot, cubes.Count);
+
+        int cubeIndex = count - 1;
+        for (int i = 0; i < slots.Length && cubeIndex >= 0; i++)
         {
             if (slots[i].IsEmpty)
             {
-                Cube cube = cubes[cubeIndex++];
+                Cube cube = cubes[cubeIndex--];
                 cube.Slot.Free();
                 slots[i].Assign(cube);
                 cube.AnimMoveToPosition();
             }
         }
-
-        SetTargetType();
     }
 
     public List<Cube> Pop()
     {
         if (IsEmpty) return new();
 
-        // Collect all consecutive cubes from the top with type similar to targetType
+        // Collect all adjacent cubes from the top with type == targetType
+        SetTargetType();
         List<Cube> cubes = new List<Cube>();
         for (int i = slots.Length - 1; i >= 0; i--)
         {
@@ -83,7 +84,6 @@ public class Stack : MonoBehaviour
                 break;
             }
         }
-        cubes.Reverse();
         return cubes;
     }
 
@@ -94,6 +94,7 @@ public class Stack : MonoBehaviour
 
         if (!IsEmpty)
         {
+            SetTargetType();
             if (cubes[0].Type != targetType) return false;
         }
 
@@ -111,6 +112,22 @@ public class Stack : MonoBehaviour
                 break;
             }
         }
+    }
+
+    int GetEmptySlotCount()
+    {
+        int count = 0;
+        if (IsEmpty) return size;
+        for (int i = size - 1; i >= 0; i--)
+        {
+            if (slots[i].IsEmpty)
+            {
+                count++;
+            }
+            else
+                break;
+        }
+        return count;
     }
 
     void OnMouseDown()

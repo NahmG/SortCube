@@ -2,17 +2,13 @@ using UnityEngine;
 
 public class HighLightObject : MonoBehaviour
 {
-    int originalLayer;
-
-    void Awake()
-    {
-        originalLayer = gameObject.layer;
-    }
+    public int outlineLayer;
+    public int originalLayer;
 
     [ContextMenu("Highlight")]
     public void Highlight()
     {
-        gameObject.layer = LayerMask.GetMask("Outline");
+        gameObject.layer = outlineLayer;
     }
 
     [ContextMenu("ClearHighlight")]

@@ -1,18 +1,19 @@
 using System;
 using UnityEngine;
 
-public class Slot : MonoBehaviour
+public class Slot
 {
     Cube cube;
     public Cube Cube => cube;
     public bool IsEmpty => cube == null;
 
-    public void SetPosition(Vector3 position, bool useLocalPosition)
+    public Vector3 _position { get; private set; }
+    public Transform _root { get; private set; }
+
+    public Slot(Vector3 position, Transform root)
     {
-        if (useLocalPosition)
-            transform.localPosition = position;
-        else
-            transform.position = position;
+        _position = position;
+        _root = root;
     }
 
     public void Assign(Cube cube)

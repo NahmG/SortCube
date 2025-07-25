@@ -34,15 +34,12 @@ public class Board : MonoBehaviour
             source = stack;
             cubeToMove = source.Pop();
             cubeToMove.ForEach(x => x.Selected());
-
-            Debug.Log("source set");
         }
         else if (target == null)
         {
             target = stack;
-            Debug.Log("target set");
 
-            if (source != target && !source.IsEmpty && !target.IsFull && cubeToMove.Count > 0)
+            if (source != target && !target.IsFull && cubeToMove.Count > 0)
                 Sort();
 
             ResetInput();
