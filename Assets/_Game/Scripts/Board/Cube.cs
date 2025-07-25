@@ -11,13 +11,15 @@ public class Cube : MonoBehaviour
     public CUBE Type => type;
     Slot slot;
     public Slot Slot => slot;
+    GameObject view;
 
-    public void Init(CUBE type)
+    public void Init(CUBE type, float scale)
     {
         this.type = type;
 
-        GameObject g = Instantiate(mesh, transform);
-        g.GetComponent<MeshRenderer>().material = data.GetColor(type);
+        view = Instantiate(mesh, transform);
+        view.GetComponent<MeshRenderer>().material = data.GetColor(type);
+        view.transform.localScale = Vector3.one * scale;
     }
 
     public void SetSlot(Slot slot)
@@ -26,9 +28,19 @@ public class Cube : MonoBehaviour
         transform.SetParent(slot.transform);
     }
 
+    public void Selected()
+    {
+        view.GetComponent<HighLightObject>().Highlight();
+    }
+
+    public void DeSelect()
+    {
+        view.GetComponent<HighLightObject>().ClearHighlight();
+    }
+
     public void AnimMoveToPosition()
     {
-        transform.DOLocalMove(Vector3.zero, .2f);
+        transform.DOLocalMove(Vector3.zero, .3f);
     }
 }
 
