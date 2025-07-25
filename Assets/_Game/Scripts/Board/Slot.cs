@@ -1,19 +1,24 @@
 using System;
 using UnityEngine;
 
-public class Slot
+public class Slot : MonoBehaviour
 {
+    [SerializeField] GameObject lockView;
     Cube cube;
     public Cube Cube => cube;
     public bool IsEmpty => cube == null;
+    bool isLock;
+    public bool IsLock => isLock;
 
-    public Vector3 _position { get; private set; }
-    public Transform _root { get; private set; }
-
-    public Slot(Vector3 position, Transform root)
+    public void Init(Vector3 position, bool isLock)
     {
-        _position = position;
-        _root = root;
+        this.isLock = isLock;
+        transform.position = position;
+
+        if (isLock)
+        {
+            lockView.SetActive(true);
+        }
     }
 
     public void Assign(Cube cube)
@@ -25,5 +30,11 @@ public class Slot
     public void Free()
     {
         cube = null;
+    }
+
+    public void Unlock()
+    {
+        isLock = false;
+        lockView.SetActive(false);
     }
 }

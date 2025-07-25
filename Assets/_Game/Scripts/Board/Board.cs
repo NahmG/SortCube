@@ -1,16 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
+using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public Stack[] stacks;
+    public List<Stack> stacks;
 
     Stack source;
     Stack target;
 
     List<Cube> cubeToMove = new();
+
+    [Button("ClearBoard")]
+    public void ClearBoard()
+    {
+        stacks.Clear();
+    }
+
+    [Button("FillBoard")]
+    public void FillBoard()
+    {
+        stacks = transform.GetComponentsInChildren<Stack>().ToList();
+    }
+
 
     void Start()
     {

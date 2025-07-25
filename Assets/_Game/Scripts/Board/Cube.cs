@@ -24,7 +24,7 @@ public class Cube : MonoBehaviour
     public void SetSlot(Slot slot)
     {
         this.slot = slot;
-        transform.SetParent(slot._root);
+        transform.SetParent(slot.transform);
     }
 
     public void Selected()
@@ -39,7 +39,7 @@ public class Cube : MonoBehaviour
 
     public void AnimMoveToPosition()
     {
-        transform.DOMove(slot._position, .3f);
+        transform.DOMove(slot.transform.position, .3f);
     }
 }
 

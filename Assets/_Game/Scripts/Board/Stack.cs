@@ -6,13 +6,14 @@ using UnityEngine;
 
 public class Stack : MonoBehaviour
 {
-    public float scale;
-    public float spacing;
-    public int size;
-    [SerializeField] Cube cubePref;
-    [SerializeField] StackData data;
-    Board board;
-    Slot[] slots;
+    [SerializeField] protected float scale;
+    [SerializeField] protected float spacing;
+    [SerializeField] protected int size;
+    [SerializeField] protected Cube cubePref;
+    [SerializeField] protected Slot slotPref;
+    [SerializeField] protected StackData data;
+    protected Board board;
+    protected Slot[] slots;
 
     CUBE targetType;
 
@@ -23,14 +24,19 @@ public class Stack : MonoBehaviour
     public void Init(Board board)
     {
         this.board = board;
-        slots = new Slot[size];
+        CreateStack();
+    }
 
+    public virtual void CreateStack()
+    {
+        slots = new Slot[size];
         //gen new slot
         for (int i = 0; i < size; i++)
         {
             //new slot
             Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
-            Slot newSlot = new(pos, transform);
+            Slot newSlot = Instantiate(slotPref, transform);
+            newSlot.Init(pos, false);
 
             //assign new slot -> array
             slots[i] = newSlot;
@@ -40,9 +46,8 @@ public class Stack : MonoBehaviour
         for (int i = 0; i < data.cubes.Length; i++)
         {
             Slot slot = slots[i];
-            Cube cube = Instantiate(cubePref, slot._root);
+            Cube cube = Instantiate(cubePref, slot.transform);
             cube.Init(data.cubes[i], scale);
-            cube.transform.position = slot._position;
 
             slot.Assign(cube);
         }
@@ -50,13 +55,13 @@ public class Stack : MonoBehaviour
 
     public void Push(List<Cube> cubes)
     {
-        int emptySlot = GetEmptySlotCount();
-        int count = Mathf.Min(emptySlot, cubes.Count);
+        int emptySlots = GetEmptySlotCount();
+        int count = Mathf.Min(emptySlots, cubes.Count);
 
         int cubeIndex = count - 1;
         for (int i = 0; i < slots.Length && cubeIndex >= 0; i++)
         {
-            if (slots[i].IsEmpty)
+            if (slots[i].IsEmpty && !slots[i].IsLock)
             {
                 Cube cube = cubes[cubeIndex--];
                 cube.Slot.Free();
@@ -120,7 +125,7 @@ public class Stack : MonoBehaviour
         if (IsEmpty) return size;
         for (int i = size - 1; i >= 0; i--)
         {
-            if (slots[i].IsEmpty)
+            if (slots[i].IsEmpty && !slots[i].IsLock)
             {
                 count++;
             }
@@ -152,7 +157,6 @@ public class Stack : MonoBehaviour
             UnityEditor.Handles.Label(pos, data.cubes[i].ToString());
         }
     }
-
 #endif
 }
 
