@@ -7,12 +7,12 @@ public class LockStack : Stack
 
     void Awake()
     {
-        GameplayManager.Ins.OnSlotUnlock += UnlockSlot;
+        LevelManager.Ins.OnSlotUnlock += UnlockSlot;
     }
 
     void OnDisable()
     {
-        GameplayManager.Ins.OnSlotUnlock -= UnlockSlot;
+        LevelManager.Ins.OnSlotUnlock -= UnlockSlot;
     }
 
     public override void CreateStack()
@@ -33,10 +33,12 @@ public class LockStack : Stack
 
     public void UnlockSlot()
     {
+        //unlock last slot
         Slot lastLockSlot = slots.LastOrDefault(x => x.IsLock);
         if (lastLockSlot != null)
             lastLockSlot.Unlock();
 
+        //move cube to new unlock slot
         int currentIndex = Array.IndexOf(slots, lastLockSlot);
         while (currentIndex < size - 1)
         {

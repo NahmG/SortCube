@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 
+[Serializable]
 public class Stack : MonoBehaviour
 {
     [SerializeField] protected float scale;
@@ -137,7 +138,7 @@ public class Stack : MonoBehaviour
 
     void OnMouseDown()
     {
-        board.SetStack(this);
+        board.OnStackSelected(this);
     }
 
 

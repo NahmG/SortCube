@@ -13,6 +13,6 @@ public class UnlockTokenButton : MonoBehaviour
 
     public void Clicked()
     {
-        GameplayManager.Ins.OnSlotUnlock?.Invoke();
+        LevelManager.Ins.OnSlotUnlock?.Invoke();
     }
 }

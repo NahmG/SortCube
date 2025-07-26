@@ -1,18 +1,45 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Serialization;
 using Sirenix.OdinInspector;
 using Unity.VisualScripting.Antlr3.Runtime.Collections;
+using UnityEditor;
 using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public List<Stack> stacks;
+    public List<Stack> stacks = new();
+    Stack stackPref;
+    LockStack lockStackPref;
 
     Stack source;
     Stack target;
-
     List<Cube> cubeToMove = new();
+
+#if UNITY_EDITOR
+    [Button("Add Stack")]
+    public void AddStack()
+    {
+        if (stackPref == null)
+        {
+            stackPref = Resources.Load<Stack>("Board/Stack");
+
+        }
+        Stack stack = Instantiate(stackPref, transform);
+        stacks.Add(stack);
+    }
+
+    [Button("Add Lock Stack")]
+    public void AddLockStack()
+    {
+        if (lockStackPref == null)
+        {
+            lockStackPref = Resources.Load<LockStack>("Board/LockStack");
+        }
+        LockStack stack = Instantiate(lockStackPref, transform);
+        stacks.Add(stack);
+    }
 
     [Button("ClearBoard")]
     public void ClearBoard()
@@ -26,13 +53,37 @@ public class Board : MonoBehaviour
         stacks = transform.GetComponentsInChildren<Stack>().ToList();
     }
 
-
-    void Start()
+    [Button("Save")]
+    public void SaveAsPrefab()
     {
-        OnInit();
-    }
+        string folderPath = CONSTANTS.LEVEL_FOLDER;
+        string baseName = gameObject.name;
+        string prefabName = baseName;
+        string prefabPath = $"{folderPath}/{prefabName}.prefab";
 
-    void OnInit()
+        // Create folder if needed
+        if (!AssetDatabase.IsValidFolder(folderPath))
+        {
+            Debug.LogWarning($"Path {folderPath} Invalid!");
+            return;
+        }
+
+        // Find available name
+        int counter = 0;
+        while (AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath) != null)
+        {
+            prefabName = $"{baseName}_{counter}";
+            prefabPath = $"{folderPath}/{prefabName}.prefab";
+            counter++;
+        }
+
+        // Save the prefab
+        PrefabUtility.SaveAsPrefabAssetAndConnect(gameObject, prefabPath, InteractionMode.UserAction);
+        Debug.Log($"Prefab saved as: {prefabName}");
+    }
+#endif
+
+    public void OnInit()
     {
         foreach (Stack s in stacks)
         {
@@ -40,7 +91,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void SetStack(Stack stack)
+    public void OnStackSelected(Stack stack)
     {
         if (source == null)
         {
@@ -81,12 +132,9 @@ public class Board : MonoBehaviour
 
     void CheckCompletion()
     {
-        int completeCount = stacks.Count(s => s.IsComplete);
-        int colorCount = Enum.GetValues(typeof(CUBE)).Length;
-
-        if (completeCount == colorCount)
+        if (stacks.Where(s => !s.IsEmpty).All(s => s.IsComplete))
         {
-            Debug.Log("All stacks for each color are complete! Level Complete.");
+            Debug.Log("Level Complete.");
         }
     }
 }
