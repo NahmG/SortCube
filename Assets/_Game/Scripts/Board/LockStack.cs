@@ -7,12 +7,12 @@ public class LockStack : Stack
 
     void Awake()
     {
-        LevelManager.Ins.OnSlotUnlock += UnlockSlot;
+        GameplayManager.Ins.OnSlotUnlock += UnlockSlot;
     }
 
     void OnDisable()
     {
-        LevelManager.Ins.OnSlotUnlock -= UnlockSlot;
+        GameplayManager.Ins.OnSlotUnlock -= UnlockSlot;
     }
 
     public override void CreateStack()

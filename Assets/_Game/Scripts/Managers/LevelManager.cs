@@ -1,28 +1,39 @@
-using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LevelManager : Singleton<LevelManager>
 {
-    #region LOAD
-    List<Board> boards;
-    int level;
-    Board currentLevel;
-    void OnLoadLevel(int level) { }
-    #endregion
+    List<Board> levels;
+    int currentLevel;
+    public int CurrentLevel => currentLevel;
 
-    #region PLAY
-    public Action OnSlotUnlock;
-    void SpawnBoard() { }
-    //Board board
+    void Awake()
+    {
+        Init();
+    }
 
-    #endregion
+    public void Init()
+    {
+        PreLoadLevel();
+        currentLevel = 1;
+    }
 
-    #region WIN_CONDITION
-    
-    #endregion
+    void PreLoadLevel()
+    {
+        levels = Resources.LoadAll<Board>("Levels").ToList();
+    }
 
-    #region Button
+    public Board GetLevel()
+    {
+        return CurrentLevel > 1 ? levels[CurrentLevel - 1] : levels[0];
+    }
 
-    #endregion
+    public void NextLevel()
+    {
+        currentLevel++;
+        if (currentLevel > levels.Count)
+            currentLevel = 1;
+    }
+
 }

@@ -1,5 +1,6 @@
 using UnityEngine;
 
-public class PanelLose : MonoBehaviour {
-    
+public class PanelLose : UIPanel
+{
+
 }

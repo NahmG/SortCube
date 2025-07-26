@@ -12,7 +12,7 @@ public class Stack : MonoBehaviour
     [SerializeField] protected int size;
     [SerializeField] protected Cube cubePref;
     [SerializeField] protected Slot slotPref;
-    [SerializeField] protected StackData data;
+    [SerializeField] protected CUBE[] cubeSet = new CUBE[]{};
     protected Board board;
     protected Slot[] slots;
 
@@ -44,11 +44,11 @@ public class Stack : MonoBehaviour
         }
 
         //gen cube
-        for (int i = 0; i < data.cubes.Length; i++)
+        for (int i = 0; i < cubeSet.Length; i++)
         {
             Slot slot = slots[i];
             Cube cube = Instantiate(cubePref, slot.transform);
-            cube.Init(data.cubes[i], scale);
+            cube.Init(cubeSet[i], scale);
 
             slot.Assign(cube);
         }
@@ -151,20 +151,13 @@ public class Stack : MonoBehaviour
             Gizmos.DrawWireCube(position, Vector3.one * scale);
         }
 
-        if (data.cubes.Length == 0) return;
-        for (int i = 0; i < data.cubes.Length; i++)
+        if (cubeSet.Length == 0) return;
+        for (int i = 0; i < cubeSet.Length; i++)
         {
             Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
-            UnityEditor.Handles.Label(pos, data.cubes[i].ToString());
+            UnityEditor.Handles.Label(pos, cubeSet[i].ToString());
         }
     }
 #endif
 }
-
-[Serializable]
-public class StackData
-{
-    public CUBE[] cubes;
-}
-
 

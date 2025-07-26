@@ -67,9 +67,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scale: 0.6
-  spacing: 0.65
+  spacing: 0.7
   size: 4
   cubePref: {fileID: 2442176077776081636, guid: 25673bc7fca861843b4e337b035f1587, type: 3}
   slotPref: {fileID: 2408680613865433467, guid: d4a2477a241f3734f9068f45da44fafb, type: 3}
-  data:
-    cubes: 
+  cubeSet: 

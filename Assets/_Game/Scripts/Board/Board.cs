@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Xml.Serialization;
 using Sirenix.OdinInspector;
-using Unity.VisualScripting.Antlr3.Runtime.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -83,6 +81,11 @@ public class Board : MonoBehaviour
     }
 #endif
 
+    public void CreateBoard()
+    {
+        
+    }
+
     public void OnInit()
     {
         foreach (Stack s in stacks)
@@ -135,6 +138,7 @@ public class Board : MonoBehaviour
         if (stacks.Where(s => !s.IsEmpty).All(s => s.IsComplete))
         {
             Debug.Log("Level Complete.");
+            GameplayManager.Ins.CheckWin();
         }
     }
 }

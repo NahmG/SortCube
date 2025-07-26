@@ -1,5 +1,6 @@
 using UnityEngine;
 
-public class PanelSetting : MonoBehaviour {
+public class PanelSetting : UIPanel
+{
     
 }
