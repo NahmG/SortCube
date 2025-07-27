@@ -8,7 +8,7 @@ public class LockStack : Stack
 
     public override void CreateStack()
     {
-        booster = BoosterManager.Ins.GetBooster(BOOSTER.UNLOCK_SLOT) as BoosterUnlockSlot;
+        booster = BoosterManager.Ins.GetBooster<BoosterUnlockSlot>(BOOSTER.UNLOCK_SLOT);
         booster.SetTarget(this);
 
         slots = new Slot[size];

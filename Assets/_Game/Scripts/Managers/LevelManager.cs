@@ -6,7 +6,7 @@ using UnityEngine;
 public class LevelManager : Singleton<LevelManager>
 {
     public Action OnLevelChange;
-    List<Board> levels;
+    public List<Board> levels;
     int currentLevel;
     public int CurrentLevel => currentLevel;
 
@@ -15,7 +15,8 @@ public class LevelManager : Singleton<LevelManager>
     {
         BoosterManager.Ins.AddBooster(BOOSTER.UNLOCK_SLOT, new BoosterUnlockSlot());
         BoosterManager.Ins.AddBooster(BOOSTER.UNDO, new BoosterUndo());
-        PreLoadLevel();
+        BoosterManager.Ins.AddBooster(BOOSTER.SHUFFLE, new BoosterShuffle());
+        // PreLoadLevel();
     }
 
     void Start()
@@ -32,7 +33,9 @@ public class LevelManager : Singleton<LevelManager>
 
     void PreLoadLevel()
     {
-        levels = Resources.LoadAll<Board>("Levels").ToList();
+        levels = Resources.LoadAll<Board>("Levels")
+            .OrderBy(board => board.name)
+            .ToList();
     }
 
     public Board GetLevel()

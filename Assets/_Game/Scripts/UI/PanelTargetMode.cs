@@ -1,7 +1,6 @@
 using UnityEngine;
 
-public class PanelTargetMode : MonoBehaviour
+public class PanelTargetMode : UIPanel
 {
-    
     
 }

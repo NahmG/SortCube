@@ -57,8 +57,8 @@ MonoBehaviour:
   - {fileID: 5291086649590311739}
   - {fileID: 1415459572371751118}
   - {fileID: 3505690546789465515}
-  - {fileID: 4658867578781284021}
   - {fileID: 2649506554486948307}
+  - {fileID: 4658867578781284021}
   stackPref: {fileID: 311905077595233379, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
   lockStackPref: {fileID: 6810248274482083376, guid: 3229d65d2d8ce3847a25a2f75034fad7, type: 3}
   columns: 4
@@ -256,7 +256,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1817283028792759567, guid: 3229d65d2d8ce3847a25a2f75034fad7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.6
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1817283028792759567, guid: 3229d65d2d8ce3847a25a2f75034fad7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -329,7 +329,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1817283028792759567, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.6
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1817283028792759567, guid: bf70157470acdef47bd3353f78ae71c0, type: 3}
       propertyPath: m_LocalPosition.y

@@ -4,6 +4,11 @@ public class BoosterShuffle : BaseBooster
 
     public override BOOSTER ID => BOOSTER.SHUFFLE;
 
+    public void SetTarget(Stack target)
+    {
+        this.target = target;
+    }
+
     public override void Activate()
     {
         if (target != null)

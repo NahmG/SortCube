@@ -21,6 +21,7 @@ public class UIManager : Singleton<UIManager>
         {
             { UI.MainMenu, _mainMenuPanel },
             { UI.Gameplay, _gameplayPanel },
+            { UI.TargetMode, _targetPanel },
             { UI.Win, _winPanel },
             { UI.Lose, _losePanel }
         };

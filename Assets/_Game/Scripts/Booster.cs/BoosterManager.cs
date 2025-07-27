@@ -25,16 +25,16 @@ public class BoosterManager : Singleton<BoosterManager>
     
     public void ActivateBooster(BOOSTER id)
     {
-        GetBooster(id)?.Activate();
+        boosters[id]?.Activate();
     }
 
-    public BaseBooster GetBooster(BOOSTER id)
+    public T GetBooster<T>(BOOSTER id) where T:BaseBooster
     {
         if (!boosters.ContainsKey(id))
         {
             AddBooster(id, null);
         }
-        return boosters[id];
+        return boosters[id] as T;
     }
 }
 

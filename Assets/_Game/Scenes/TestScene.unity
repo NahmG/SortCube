@@ -163,6 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0406bad70442b948b7575a952304900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsTargetMode: 0
 --- !u!1 &578866557
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 661221b6dddd80d4bb3eee82908420f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  levels: []
   Boosters:
   - Id: 0
     unlockLevel: 0
@@ -538,10 +540,16 @@ MonoBehaviour:
       Data: 3|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
+      Data: 4
+    - Name: 
+      Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 4
     - Name: 
       Entry: 3
       Data: 5
@@ -556,16 +564,13 @@ MonoBehaviour:
       Data: 4|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 3
       Data: 4
@@ -580,10 +585,16 @@ MonoBehaviour:
       Data: 5|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 3
+    - Name: 
+      Entry: 3
+      Data: 4
+    - Name: 
+      Entry: 3
+      Data: 5
     - Name: 
       Entry: 13
       Data: 
@@ -595,19 +606,13 @@ MonoBehaviour:
       Data: 6|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 2
     - Name: 
       Entry: 3
-      Data: 1
+      Data: 5
     - Name: 
       Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 4
-    - Name: 
-      Entry: 3
-      Data: 4
+      Data: 5
     - Name: 
       Entry: 13
       Data: 
@@ -619,16 +624,13 @@ MonoBehaviour:
       Data: 7|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
-    - Name: 
-      Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 3
       Data: 2
     - Name: 
       Entry: 3
-      Data: 5
+      Data: 3
     - Name: 
       Entry: 13
       Data: 
@@ -640,13 +642,16 @@ MonoBehaviour:
       Data: 8|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 3
-      Data: 5
+      Data: 1
     - Name: 
       Entry: 3
-      Data: 5
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 4
     - Name: 
       Entry: 13
       Data: 
@@ -658,19 +663,16 @@ MonoBehaviour:
       Data: 9|System.Collections.Generic.List`1[[CUBE, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
-      Data: 2
-    - Name: 
-      Entry: 3
       Data: 3
     - Name: 
       Entry: 3
-      Data: 4
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 3
+      Data: 3
     - Name: 
       Entry: 13
       Data: 

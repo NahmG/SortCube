@@ -27,7 +27,7 @@ public class Stack : MonoBehaviour
     {
         get
         {
-            BoosterUndo boosterUndo = BoosterManager.Ins.GetBooster(BOOSTER.UNDO) as BoosterUndo;
+            BoosterUndo boosterUndo = BoosterManager.Ins.GetBooster<BoosterUndo>(BOOSTER.UNDO);
             return boosterUndo.undoManager;
         }
     }
@@ -129,7 +129,30 @@ public class Stack : MonoBehaviour
     {
         if (IsEmpty) return;
 
-        
+        // Gather all cubes in the stack
+        List<Cube> cubes = new List<Cube>();
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (!slots[i].IsEmpty)
+            {
+                cubes.Add(slots[i].Cube);
+                slots[i].Free();
+            }
+        }
+
+        // Shuffle the cubes
+        for (int i = cubes.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (cubes[i], cubes[j]) = (cubes[j], cubes[i]);
+        }
+
+        // Reassign cubes to slots from bottom up
+        for (int i = 0; i < cubes.Count; i++)
+        {
+            slots[i].Assign(cubes[i]);
+            cubes[i].AnimMoveToPosition();
+        }
     }
 
     void SetTargetType()
@@ -162,6 +185,10 @@ public class Stack : MonoBehaviour
 
     void OnMouseDown()
     {
+        if (GameplayManager.Ins.IsTargetMode)
+        {
+            GameplayManager.Ins.OnTargetSelect(this);
+        }
         board.OnStackSelected(this);
     }
 

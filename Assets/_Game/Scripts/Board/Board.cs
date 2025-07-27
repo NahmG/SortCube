@@ -129,7 +129,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    void ResetInput()
+    public void ResetInput()
     {
         source = null;
         target = null;
