@@ -11,7 +11,7 @@ public class GameplayManager : Singleton<GameplayManager>
     public void Load()
     {
         currentLevelPref = LevelManager.Ins.GetLevel();
-        
+
         if (CurrentLevel != null)
         {
             Destroy(CurrentLevel.gameObject);
@@ -20,16 +20,12 @@ public class GameplayManager : Singleton<GameplayManager>
         CurrentLevel.OnInit();
     }
 
-    #region GAMEPLAY
-
-    
-
-    #endregion
-
     #region WIN
     public void CheckWin()
     {
+
         GameManager.Ins.ChangeState(GameState.Win);
+
     }
     #endregion
 

@@ -15,24 +15,32 @@ public class Stack : MonoBehaviour
     [SerializeField] protected Cube cubePref;
     [SerializeField] protected Slot slotPref;
     [SerializeField] protected List<CUBE> cubeSet = new();
-    protected Board board;
     protected Slot[] slots;
 
+    Board board;
     CUBE targetType;
 
     public bool IsFull => slots.All(x => !x.IsEmpty);
     public bool IsEmpty => !slots.Any(x => !x.IsEmpty);
     public bool IsComplete => IsFull && slots.All(x => x.Cube.Type == slots[0].Cube.Type);
-
-    public void SetCubeSet(List<CUBE> cubeSet)
+    public UndoManager UndoManager
     {
-        this.cubeSet = cubeSet;
+        get
+        {
+            BoosterUndo boosterUndo = BoosterManager.Ins.GetBooster(BOOSTER.UNDO) as BoosterUndo;
+            return boosterUndo.undoManager;
+        }
     }
 
     public void Init(Board board)
     {
         this.board = board;
         CreateStack();
+    }
+
+    public void SetCubeSet(List<CUBE> cubeSet)
+    {
+        this.cubeSet = cubeSet;
     }
 
     public virtual void CreateStack()
@@ -72,6 +80,9 @@ public class Stack : MonoBehaviour
             if (slots[i].IsEmpty && !slots[i].IsLock)
             {
                 Cube cube = cubes[cubeIndex--];
+
+                UndoManager.SetRecord(cube.Slot, slots[i], cube);
+
                 cube.Slot.Free();
                 slots[i].Assign(cube);
                 cube.AnimMoveToPosition();
@@ -112,6 +123,13 @@ public class Stack : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void Shuffle()
+    {
+        if (IsEmpty) return;
+
+        
     }
 
     void SetTargetType()
@@ -157,12 +175,12 @@ public class Stack : MonoBehaviour
             Gizmos.DrawWireCube(position, Vector3.one * itemScale);
         }
 
-        if (cubeSet.Count == 0) return;
-        for (int i = 0; i < cubeSet.Count; i++)
-        {
-            Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
-            UnityEditor.Handles.Label(pos, cubeSet[i].ToString());
-        }
+        // if (cubeSet.Count == 0) return;
+        // for (int i = 0; i < cubeSet.Count; i++)
+        // {
+        //     Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
+        //     UnityEditor.Handles.Label(pos, cubeSet[i].ToString());
+        // }
     }
 #endif
 }

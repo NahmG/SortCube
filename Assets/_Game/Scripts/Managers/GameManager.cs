@@ -29,6 +29,9 @@ public class GameManager : Singleton<GameManager>
             case GameState.Lose:
                 UIManager.Ins.ChangeUI(UI.Lose);
                 break;
+            case GameState.TargetMode:
+                
+                break;
         }
     }
 }
@@ -37,6 +40,7 @@ public enum GameState
 {
     MainMenu,
     Gameplay,
+    TargetMode,
     Win,
     Lose,
 }

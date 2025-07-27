@@ -1,6 +1,7 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
-public class UIPanel : MonoBehaviour
+public class UIPanel : SerializedMonoBehaviour
 {
     public void Open()
     {

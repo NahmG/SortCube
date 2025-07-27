@@ -49,4 +49,5 @@ public enum CUBE
     RED = 2,
     YELLOW = 3,
     GREEN = 4,
+    ORANGE = 5,
 }

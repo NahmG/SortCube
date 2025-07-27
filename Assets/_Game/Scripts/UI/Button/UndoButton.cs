@@ -2,19 +2,18 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnlockTokenButton : MonoBehaviour
+public class UndoButton : MonoBehaviour
 {
     [SerializeField] Button button;
 
     void Awake()
     {
-        GetComponent<Canvas>().worldCamera = Camera.main;
         button.onClick.AddListener(Clicked);
     }
 
     public void Clicked()
     {
-        Debug.Log("Unlock Slot");
-        GameplayManager.Ins.OnSlotUnlock?.Invoke();
+        Debug.Log("Undo");
+        BoosterManager.Ins.ActivateBooster(BOOSTER.UNDO);
     }
 }

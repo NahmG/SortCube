@@ -9,6 +9,7 @@ public class UIManager : Singleton<UIManager>
     [SerializeField] PanelGameplay _gameplayPanel;
     [SerializeField] PanelWin _winPanel;
     [SerializeField] PanelLose _losePanel;
+    [SerializeField] PanelTargetMode _targetPanel;
 
     UI currentUI = UI.MainMenu;
 
@@ -69,6 +70,7 @@ public enum UI
 {
     MainMenu,
     Gameplay,
+    TargetMode,
     Win,
     Lose
 }

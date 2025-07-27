@@ -11,13 +11,10 @@ public class Board : MonoBehaviour
     [SerializeField] Stack stackPref;
     [SerializeField] LockStack lockStackPref;
 
-    Transform _root;
-    Stack source;
-    Stack target;
-    List<Cube> cubeToMove = new();
-
     #region EDITOR
 #if UNITY_EDITOR
+
+    [Button("AddStack")]
     public void AddStack(List<CUBE> cubeSet)
     {
         Stack stack = Instantiate(stackPref, transform);
@@ -67,7 +64,7 @@ public class Board : MonoBehaviour
     public int columns = 4;           // Number of columns
     public float spacingX = 1.5f;     // Horizontal spacing
     public float spacingY = .3f;     // Vertical spacing
-    
+
     [Button("Layout")]
     void Layout()
     {
@@ -91,16 +88,16 @@ public class Board : MonoBehaviour
 
             stacks[i].transform.position = worldPos;
         }
+
+        transform.position = new Vector3(transform.position.x, -1.2f, transform.position.z);
     }
 
     #endregion
-    public void OnInit()
-    {
-        foreach (Stack s in stacks)
-        {
-            s.Init(this);
-        }
-    }
+
+    #region GAME_LOGIC
+    Stack source;
+    Stack target;
+    List<Cube> cubeToMove = new();
 
     public void OnStackSelected(Stack stack)
     {
@@ -140,12 +137,22 @@ public class Board : MonoBehaviour
         cubeToMove.ForEach(x => x.DeSelect());
         cubeToMove.Clear();
     }
+    #endregion
 
-    void CheckCompletion()
+
+    public void OnInit()
+    {
+        foreach (Stack s in stacks)
+        {
+            s.Init(this);
+        }
+    }
+
+    public void CheckCompletion()
     {
         if (stacks.Where(s => !s.IsEmpty).All(s => s.IsComplete))
         {
-            Debug.Log("Level Complete.");
+            Debug.Log("LevelComplete");
             GameplayManager.Ins.CheckWin();
         }
     }

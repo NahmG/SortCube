@@ -1,7 +1,14 @@
 using System;
 
-public interface IBooster
+public abstract class BaseBooster
 {
-    public abstract BOOSTER Type { get; }
-    void Activate();
+    public abstract BOOSTER ID { get; }
+    public abstract void Activate();
+}
+
+[Serializable]
+public class BoosterData 
+{
+    public BOOSTER Id;
+    public int unlockLevel;
 }

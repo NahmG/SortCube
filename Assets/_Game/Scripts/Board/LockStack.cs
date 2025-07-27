@@ -4,18 +4,13 @@ using UnityEngine;
 
 public class LockStack : Stack
 {
-    void Awake()
-    {
-        GameplayManager.Ins.OnSlotUnlock += UnlockSlot;
-    }
-
-    void OnDisable()
-    {
-        GameplayManager.Ins.OnSlotUnlock -= UnlockSlot;
-    }
+    BoosterUnlockSlot booster;
 
     public override void CreateStack()
     {
+        booster = BoosterManager.Ins.GetBooster(BOOSTER.UNLOCK_SLOT) as BoosterUnlockSlot;
+        booster.SetTarget(this);
+
         slots = new Slot[size];
         //gen new lock slot
         for (int i = 0; i < size; i++)
@@ -54,6 +49,7 @@ public class LockStack : Stack
         }
     }
 
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         for (int i = 0; i < size; i++)
@@ -61,18 +57,6 @@ public class LockStack : Stack
             Vector3 position = transform.position + new Vector3(0, i * spacing);
             Gizmos.DrawWireCube(position, Vector3.one * itemScale);
         }
-
-        if (Application.isPlaying)
-        {
-            for (int i = 0; i < size; i++)
-            {
-                Slot slot = slots[i];
-                if (slots[i].IsLock)
-                {
-                    UnityEditor.Handles.Label(slot.transform.position, "Lock");
-                }
-            }
-        }
-
     }
+#endif
 }

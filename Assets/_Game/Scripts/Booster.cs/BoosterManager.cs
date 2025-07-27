@@ -2,12 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-public class BoosterManager
+public class BoosterManager : Singleton<BoosterManager>
 {
-    Dictionary<BOOSTER, IBooster> boosters;
-    public Dictionary<BOOSTER, IBooster> Boosters => boosters;
+    Dictionary<BOOSTER, BaseBooster> boosters = new();
+    public Dictionary<BOOSTER, BaseBooster> Boosters => boosters;
 
-    public void AddBooster(BOOSTER id, IBooster booster)
+    public void AddBooster(BOOSTER id, BaseBooster booster)
     {
         if (!boosters.ContainsKey(id))
         {
@@ -22,8 +22,13 @@ public class BoosterManager
             boosters.Remove(id);
         }
     }
+    
+    public void ActivateBooster(BOOSTER id)
+    {
+        GetBooster(id)?.Activate();
+    }
 
-    public IBooster GetBooster(BOOSTER id)
+    public BaseBooster GetBooster(BOOSTER id)
     {
         if (!boosters.ContainsKey(id))
         {
@@ -38,5 +43,5 @@ public enum BOOSTER
     NONE = 0,
     UNLOCK_SLOT = 1,
     UNDO = 2,
-    SHUFFLE_STACK = 3
+    SHUFFLE = 3
 }
