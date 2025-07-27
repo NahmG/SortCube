@@ -8,47 +8,28 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public List<Stack> stacks = new();
-    Stack stackPref;
-    LockStack lockStackPref;
+    [SerializeField] Stack stackPref;
+    [SerializeField] LockStack lockStackPref;
 
+    Transform _root;
     Stack source;
     Stack target;
     List<Cube> cubeToMove = new();
 
+    #region EDITOR
 #if UNITY_EDITOR
-    [Button("Add Stack")]
-    public void AddStack()
+    public void AddStack(List<CUBE> cubeSet)
     {
-        if (stackPref == null)
-        {
-            stackPref = Resources.Load<Stack>("Board/Stack");
-
-        }
         Stack stack = Instantiate(stackPref, transform);
+        stack.SetCubeSet(cubeSet);
+
         stacks.Add(stack);
     }
 
-    [Button("Add Lock Stack")]
     public void AddLockStack()
     {
-        if (lockStackPref == null)
-        {
-            lockStackPref = Resources.Load<LockStack>("Board/LockStack");
-        }
         LockStack stack = Instantiate(lockStackPref, transform);
         stacks.Add(stack);
-    }
-
-    [Button("ClearBoard")]
-    public void ClearBoard()
-    {
-        stacks.Clear();
-    }
-
-    [Button("FillBoard")]
-    public void FillBoard()
-    {
-        stacks = transform.GetComponentsInChildren<Stack>().ToList();
     }
 
     [Button("Save")]
@@ -80,12 +61,39 @@ public class Board : MonoBehaviour
         Debug.Log($"Prefab saved as: {prefabName}");
     }
 #endif
-
-    public void CreateBoard()
+    #endregion
+    #region LAYOUT
+    [Header("Layout")]
+    public int columns = 4;           // Number of columns
+    public float spacingX = 1.5f;     // Horizontal spacing
+    public float spacingY = .3f;     // Vertical spacing
+    
+    [Button("Layout")]
+    void Layout()
     {
-        
+        int totalCount = stacks.Count;
+        int rows = Mathf.CeilToInt((float)totalCount / columns);
+
+        // Offset to center grid around origin
+        Vector3 offset = new Vector3(
+            (columns - 1) * spacingX * 0.5f,
+            -(rows - 1) * spacingY * 0.5f,
+            0);
+
+        for (int i = 0; i < totalCount; i++)
+        {
+            int row = i / columns;
+            int col = i % columns;
+
+            Vector3 origin = transform.position;
+            Vector3 localPos = new Vector3(col * spacingX, -row * spacingY, 0);
+            Vector3 worldPos = origin + localPos - offset;
+
+            stacks[i].transform.position = worldPos;
+        }
     }
 
+    #endregion
     public void OnInit()
     {
         foreach (Stack s in stacks)

@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4902845089464433079}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51,6 +51,11 @@ MonoBehaviour:
   - {fileID: 7245279558125268738}
   - {fileID: 490251241148066353}
   - {fileID: 7776080360787894569}
+  stackPref: {fileID: 0}
+  lockStackPref: {fileID: 0}
+  columns: 4
+  spacingX: 1.5
+  spacingY: 0.3
 --- !u!1001 &187362193013438034
 PrefabInstance:
   m_ObjectHideFlags: 0

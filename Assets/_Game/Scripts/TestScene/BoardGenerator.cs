@@ -1,21 +1,43 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Serialization;
 using UnityEngine;
 
-public class BoardGenerator : MonoBehaviour
+public class BoardGenerator : SerializedMonoBehaviour
 {
-    public List<List<CUBE>> cubeSets;
-    public BoardData Data;
-    public List<Stack> stacks;
+    [OdinSerialize] 
+    public Dictionary<CUBE, int> cubesCounts = new();
+    public int stackCount;
+    public bool addLockStack;
     public Board boardPref;
+    Board board;
+
+    [OdinSerialize] 
+    public List<List<CUBE>> cubeSets;
 
     [Button("Create Board")]
     void CreateBoard()
     {
+        GenCubeSets();
+        //add new board
+        board = Instantiate(boardPref, transform);
+        board.gameObject.name = "Board";
+        for (int i = 0; i < stackCount; i++)
+        {
+            board.AddStack(cubeSets[i]);
+        }
+        if (addLockStack)
+        {
+            board.AddLockStack();
+        }
+    }
+
+    void GenCubeSets()
+    {
         cubeSets = new List<List<CUBE>>();
         var cubeList = new List<CUBE>();
-        foreach (var kvp in Data.cubesCounts)
+        foreach (var kvp in cubesCounts)
         {
             for (int i = 0; i < kvp.Value; i++)
             {
@@ -23,39 +45,27 @@ public class BoardGenerator : MonoBehaviour
             }
         }
         var rng = new System.Random();
-        int stackCount = Data.stackCount;
 
-        // Ensure cubeSets count matches cubeList count if cubeList.Count == stackCount
-        if (cubeList.Count == stackCount)
+        // Initialize cubeSets
+        for (int i = 0; i < stackCount; i++)
         {
-            // Initialize cubeSets
-            for (int i = 0; i < stackCount; i++)
+            cubeSets.Add(new List<CUBE>());
+        }
+        // Assign each cube to a random stack, ensuring no stack exceeds 4 cubes
+        foreach (var cube in cubeList)
+        {
+            int attempts = 0;
+            while (attempts < 10000)
             {
-                cubeSets.Add(new List<CUBE>());
-            }
-            // Assign each cube to a random stack, ensuring no stack exceeds 4 cubes
-            foreach (var cube in cubeList)
-            {
-                int attempts = 0;
-                while (attempts < 10000)
+                int idx = rng.Next(stackCount);
+                if (cubeSets[idx].Count < 4)
                 {
-                    int idx = rng.Next(stackCount);
-                    if (cubeSets[idx].Count < 4)
-                    {
-                        cubeSets[idx].Add(cube);
-                        break;
-                    }
-                    attempts++;
+                    cubeSets[idx].Add(cube);
+                    break;
                 }
+                attempts++;
             }
         }
     }
 }
 
-[CreateAssetMenu(fileName = "BoardData", menuName = "ScriptableObject/Data/BoardData")]
-public class BoardData : SerializedScriptableObject
-{
-    public int stackCount;
-    public bool addLockStack;
-    public Dictionary<CUBE, int> cubesCounts = new();
-}

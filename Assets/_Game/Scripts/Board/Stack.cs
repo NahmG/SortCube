@@ -1,18 +1,20 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 
 [Serializable]
 public class Stack : MonoBehaviour
 {
-    [SerializeField] protected float scale;
+    [SerializeField] protected float itemScale;
+    [SerializeField] protected float cellScale;
     [SerializeField] protected float spacing;
     [SerializeField] protected int size;
     [SerializeField] protected Cube cubePref;
     [SerializeField] protected Slot slotPref;
-    [SerializeField] protected CUBE[] cubeSet = new CUBE[]{};
+    [SerializeField] protected List<CUBE> cubeSet = new();
     protected Board board;
     protected Slot[] slots;
 
@@ -21,6 +23,11 @@ public class Stack : MonoBehaviour
     public bool IsFull => slots.All(x => !x.IsEmpty);
     public bool IsEmpty => !slots.Any(x => !x.IsEmpty);
     public bool IsComplete => IsFull && slots.All(x => x.Cube.Type == slots[0].Cube.Type);
+
+    public void SetCubeSet(List<CUBE> cubeSet)
+    {
+        this.cubeSet = cubeSet;
+    }
 
     public void Init(Board board)
     {
@@ -37,18 +44,18 @@ public class Stack : MonoBehaviour
             //new slot
             Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
             Slot newSlot = Instantiate(slotPref, transform);
-            newSlot.Init(pos, false);
+            newSlot.Init(pos, cellScale, false);
 
             //assign new slot -> array
             slots[i] = newSlot;
         }
 
         //gen cube
-        for (int i = 0; i < cubeSet.Length; i++)
+        for (int i = 0; i < cubeSet.Count; i++)
         {
             Slot slot = slots[i];
             Cube cube = Instantiate(cubePref, slot.transform);
-            cube.Init(cubeSet[i], scale);
+            cube.Init(cubeSet[i], itemScale);
 
             slot.Assign(cube);
         }
@@ -123,7 +130,6 @@ public class Stack : MonoBehaviour
     int GetEmptySlotCount()
     {
         int count = 0;
-        if (IsEmpty) return size;
         for (int i = size - 1; i >= 0; i--)
         {
             if (slots[i].IsEmpty && !slots[i].IsLock)
@@ -148,11 +154,11 @@ public class Stack : MonoBehaviour
         for (int i = 0; i < size; i++)
         {
             Vector3 position = transform.position + new Vector3(0, i * spacing);
-            Gizmos.DrawWireCube(position, Vector3.one * scale);
+            Gizmos.DrawWireCube(position, Vector3.one * itemScale);
         }
 
-        if (cubeSet.Length == 0) return;
-        for (int i = 0; i < cubeSet.Length; i++)
+        if (cubeSet.Count == 0) return;
+        for (int i = 0; i < cubeSet.Count; i++)
         {
             Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
             UnityEditor.Handles.Label(pos, cubeSet[i].ToString());

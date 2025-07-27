@@ -17,7 +17,7 @@ public class Cube : MonoBehaviour
     {
         this.type = type;
 
-        mesh.GetComponent<MeshRenderer>().material = data.GetColor(type);
+        mesh.GetComponent<SpriteRenderer>().color = data.GetColor(type);
         mesh.transform.localScale = Vector3.one * scale;
     }
 

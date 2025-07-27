@@ -20,6 +20,12 @@ public class GameplayManager : Singleton<GameplayManager>
         CurrentLevel.OnInit();
     }
 
+    #region GAMEPLAY
+
+    
+
+    #endregion
+
     #region WIN
     public void CheckWin()
     {

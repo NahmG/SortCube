@@ -6,13 +6,13 @@ using UnityEngine;
 public class CubeData : SerializedScriptableObject
 {
     [SerializeField]
-    Dictionary<CUBE, Material> colors;
-    public Dictionary<CUBE, Material> Colors => colors;
+    Dictionary<CUBE, Color> colors;
+    public Dictionary<CUBE, Color> Colors => colors;
 
-    public Material GetColor(CUBE type)
+    public Color GetColor(CUBE type)
     {
         if (colors.ContainsKey(type))
             return colors[type];
-        return null;
+        return Color.clear;
     }
 }

@@ -15,11 +15,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 2100000, guid: 811fd8f1f8a5a8d4dbf85f9890fb193a, type: 2}
-    - {fileID: 2100000, guid: 4ff5824e97922a942a83b9f0164c5c52, type: 2}
-    - {fileID: 2100000, guid: 3a21154904843be4998b0f4b2d4e2d17, type: 2}
-    - {fileID: 2100000, guid: dcc913c82439fb645b69f7cdc9ba3c03, type: 2}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,7 +23,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: colors
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[CUBE, Assembly-CSharp],[UnityEngine.Material,
+      Data: 0|System.Collections.Generic.Dictionary`2[[CUBE, Assembly-CSharp],[UnityEngine.Color,
         UnityEngine.CoreModule]], mscorlib
     - Name: comparer
       Entry: 7
@@ -52,8 +48,23 @@ MonoBehaviour:
       Entry: 3
       Data: 1
     - Name: $v
-      Entry: 10
-      Data: 0
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.192156866
+    - Name: 
+      Entry: 4
+      Data: 0.494117647
+    - Name: 
+      Entry: 4
+      Data: 0.996078432
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -64,8 +75,23 @@ MonoBehaviour:
       Entry: 3
       Data: 2
     - Name: $v
-      Entry: 10
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
       Data: 1
+    - Name: 
+      Entry: 4
+      Data: 0.223529413
+    - Name: 
+      Entry: 4
+      Data: 0.223529413
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -76,8 +102,23 @@ MonoBehaviour:
       Entry: 3
       Data: 3
     - Name: $v
-      Entry: 10
-      Data: 2
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.996078432
+    - Name: 
+      Entry: 4
+      Data: 0.847058833
+    - Name: 
+      Entry: 4
+      Data: 0.003921569
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -88,8 +129,23 @@ MonoBehaviour:
       Entry: 3
       Data: 4
     - Name: $v
-      Entry: 10
-      Data: 3
+      Entry: 7
+      Data: UnityEngine.Color, UnityEngine.CoreModule
+    - Name: 
+      Entry: 4
+      Data: 0.145098045
+    - Name: 
+      Entry: 4
+      Data: 0.7529412
+    - Name: 
+      Entry: 4
+      Data: 0.286274523
+    - Name: 
+      Entry: 4
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

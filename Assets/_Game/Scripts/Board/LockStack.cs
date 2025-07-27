@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class LockStack : Stack
 {
-
     void Awake()
     {
         GameplayManager.Ins.OnSlotUnlock += UnlockSlot;
@@ -24,7 +23,7 @@ public class LockStack : Stack
             //new slot
             Vector3 pos = transform.position + new Vector3(0, i * spacing, 0);
             Slot newSlot = Instantiate(slotPref, transform);
-            newSlot.Init(pos, true);
+            newSlot.Init(pos, cellScale, true);
 
             //assign new slot -> array
             slots[i] = newSlot;
@@ -60,7 +59,7 @@ public class LockStack : Stack
         for (int i = 0; i < size; i++)
         {
             Vector3 position = transform.position + new Vector3(0, i * spacing);
-            Gizmos.DrawWireCube(position, Vector3.one * scale);
+            Gizmos.DrawWireCube(position, Vector3.one * itemScale);
         }
 
         if (Application.isPlaying)

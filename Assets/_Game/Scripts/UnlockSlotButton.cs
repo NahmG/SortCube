@@ -8,11 +8,13 @@ public class UnlockTokenButton : MonoBehaviour
 
     void Awake()
     {
+        GetComponent<Canvas>().worldCamera = Camera.main;
         button.onClick.AddListener(Clicked);
     }
 
     public void Clicked()
     {
+        Debug.Log("Unlock Slot");
         GameplayManager.Ins.OnSlotUnlock?.Invoke();
     }
 }

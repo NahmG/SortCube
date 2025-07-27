@@ -1,19 +1,17 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class HighLightObject : MonoBehaviour
 {
-    public int outlineLayer;
-    public int originalLayer;
+    public GameObject highlighter;
 
-    [ContextMenu("Highlight")]
     public void Highlight()
     {
-        gameObject.layer = outlineLayer;
+        highlighter.SetActive(true);
     }
 
-    [ContextMenu("ClearHighlight")]
     public void ClearHighlight()
     {
-        gameObject.layer = originalLayer;
+        highlighter.SetActive(false);
     }
 }

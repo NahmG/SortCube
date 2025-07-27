@@ -71,5 +71,5 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  stackCount: 4
-  addLockStack: 0
+  stackCount: 3
+  addLockStack: 1

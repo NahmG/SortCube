@@ -10,15 +10,13 @@ public class Slot : MonoBehaviour
     bool isLock;
     public bool IsLock => isLock;
 
-    public void Init(Vector3 position, bool isLock)
+    public void Init(Vector3 position, float scale, bool isLock)
     {
         this.isLock = isLock;
         transform.position = position;
+        transform.localScale = scale * Vector3.one;
 
-        if (isLock)
-        {
-            lockView.SetActive(true);
-        }
+        lockView.SetActive(isLock);
     }
 
     public void Assign(Cube cube)
